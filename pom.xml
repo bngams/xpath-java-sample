@@ -1,0 +1,52 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fr.cesi.ril18</groupId>
+  <artifactId>xpathDemo</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>XpathDemo</name>
+  
+   <build>
+	  <pluginManagement>
+	        <plugins>
+	            <!--
+	                If we e.g. execute on JDK 1.7, we should compile for Java 7 to get
+	                the same (or higher) JAXB API version as used during the xjc execution.
+	            -->
+	            <plugin>
+	                <groupId>org.apache.maven.plugins</groupId>
+	                <artifactId>maven-compiler-plugin</artifactId>
+	                <configuration>
+	                    <source>1.8</source>
+	                    <target>1.8</target>
+	                </configuration>
+	            </plugin>
+	        </plugins>
+	    </pluginManagement>
+		<plugins>
+			<!-- Plugin required to build java classes from XSD using XJC -->
+			<plugin>
+			    <groupId>org.codehaus.mojo</groupId>
+			    <artifactId>jaxb2-maven-plugin</artifactId>
+			    <version>2.3</version>
+			    <executions>
+			        <execution>
+			            <id>xjc</id>
+			            <goals>
+			                <goal>xjc</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			    <configuration>
+			        <xjbSources>
+			            <xjbSource>src/main/resources/global.xjb</xjbSource>
+			        </xjbSources>
+			        <sources>
+			            <source>src/main/resources/root.xsd</source>
+			        </sources>
+			        <outputDirectory>${basedir}/src/main/java/models</outputDirectory>
+			        <clearOutputDir>false</clearOutputDir>
+			    </configuration>
+			</plugin>		
+		</plugins>
+  	</build>
+</project>
